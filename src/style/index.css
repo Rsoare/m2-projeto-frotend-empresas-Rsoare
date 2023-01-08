@@ -1,6 +1,7 @@
-.header__boxShadow{
+.header__boxShadow {
     box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.20);
 }
+
 .header__container {
     position: relative;
     display: flex;
@@ -29,14 +30,14 @@
 .fa-bars {
     font-size: 1.2rem;
     position: absolute;
-    right: 1rem;
+    right: 1.5rem;
 }
 
 .fa-x {
     display: none;
     font-size: 1.2rem;
     position: absolute;
-    right: 1rem;
+    right: 1.5rem;
 }
 
 .main__container {
@@ -82,7 +83,13 @@
     align-items: center;
     gap: 1rem;
     padding-left: 1rem;
-    overflow-x: scroll;
+    overflow-y: scroll;
+}
+.setor__list--container::-webkit-scrollbar {
+    width: 9px;
+}
+.setor__list--container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
 }
 
 .setor__list--item {
@@ -118,7 +125,7 @@
     justify-content: center;
     border: solid 2px var(--border-color-blue);
     color: var(--text-color-blue);
-    width: 4.5rem;
+    width: 6.5rem;
     height: 2rem;
     border-radius: 15rem;
 }
@@ -129,7 +136,7 @@
 }
 
 .nav__mobile--buttons {
-    display:none;
+    display: none;
     position: absolute;
     align-items: center;
     justify-content: center;
@@ -160,19 +167,31 @@
     border: none;
     color: var(--grey-100);
 }
-.main__img--desktop{
+
+.main__img--desktop {
     display: none;
 }
 
+.open__menu {
+    display: flex;
+}
+
+
 @media screen and (min-width:769px) {
-    .container{
+    .container {
         max-width: 1200px;
         margin: 0 auto;
     }
-    .fa-bars{
+
+    .fa-bars {
         display: none;
-    } 
-    .nav__mobile--buttons{
+    }
+
+    .fa-x {
+        display: none;
+    }
+
+    .nav__mobile--buttons {
         display: flex;
         background: none;
         box-shadow: none;
@@ -182,31 +201,34 @@
         width: 20rem;
         height: 3rem;
     }
-    .main__container{
+
+    .main__container {
         display: flex;
         justify-content: space-between;
         width: 97%;
         margin: 3rem auto;
     }
-    .main__img--desktop{
+
+    .main__img--desktop {
         display: block;
-        width:50%;
+        width: 50%;
         height: 45rem;
         object-fit: cover;
     }
 
-    .setor__container{
+    .setor__container {
         width: 47%;
         height: 45rem;
     }
 
-    .setor__list--container{
+    .setor__list--container {
         flex-direction: column;
         margin-top: 1rem;
         gap: 1.5rem;
         overflow-x: hidden;
     }
-    .setor__list--item{
+
+    .setor__list--item {
         width: 90%;
     }
-}   
+}
