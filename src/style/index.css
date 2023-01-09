@@ -46,14 +46,32 @@
     height: 100%;
 }
 
-.setor__container {
+.sector__container {
+    position: relative;
     width: 100%;
     height: 21rem;
     box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.20);
     background-color: var(--grey-200);
 }
 
-.setor__header--container {
+.sector__optios--container {
+    position: absolute;
+    background-color: var(--primary-color);
+    top: 3.3rem;
+    height: 2rem;
+    right: 0;
+    z-index: 1;
+    color: var(--grey-100);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.sector__option {
+    background-color: var(--grey-100);
+    color: var(--text-color-blue);
+}
+
+.sector__header--container {
     position: relative;
     display: flex;
     align-items: center;
@@ -63,7 +81,7 @@
     height: 3.25rem;
 }
 
-.setor__header--container>p {
+.sector__header--container>p {
     font-size: 1.25rem;
     color: var(--grey-100);
 }
@@ -73,9 +91,14 @@
     color: var(--grey-100);
     font-size: 1.75rem;
     right: 1rem;
+    cursor: pointer;
 }
 
-.setor__list--container {
+.sector__optios--container {
+    display: none;
+}
+
+.sector__list--container {
     position: relative;
     width: 100%;
     height: 84%;
@@ -85,21 +108,24 @@
     padding-left: 1rem;
     overflow-y: scroll;
 }
-.setor__list--container::-webkit-scrollbar {
+
+.sector__list--container::-webkit-scrollbar {
     width: 9px;
+    height: 9px;
 }
-.setor__list--container::-webkit-scrollbar-thumb {
+
+.sector__list--container::-webkit-scrollbar-thumb {
     background-color: var(--primary-color);
 }
 
-.setor__list--item {
+.sector__list--item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--grey-100);
     position: relative;
     min-width: 15.2rem;
-    min-height: 13.1rem;
+    min-height: 11.1rem;
     border-bottom: solid 2px var(--border-color-blue);
     padding: 1rem
 }
@@ -125,7 +151,7 @@
     justify-content: center;
     border: solid 2px var(--border-color-blue);
     color: var(--text-color-blue);
-    width: 6.5rem;
+    width: 7rem;
     height: 2rem;
     border-radius: 15rem;
 }
@@ -176,7 +202,6 @@
     display: flex;
 }
 
-
 @media screen and (min-width:769px) {
     .container {
         max-width: 1200px;
@@ -216,19 +241,26 @@
         object-fit: cover;
     }
 
-    .setor__container {
+    .sector__container {
         width: 47%;
         height: 45rem;
     }
 
-    .setor__list--container {
+    .sector__list--container {
         flex-direction: column;
         margin-top: 1rem;
         gap: 1.5rem;
         overflow-x: hidden;
     }
 
-    .setor__list--item {
+    .sector__list--item {
         width: 90%;
+    }
+
+    .sector__optios--container {
+        width: 10.5rem;
+        height: 2rem;
+        right: 1.3rem;
+        top: 4rem;
     }
 }

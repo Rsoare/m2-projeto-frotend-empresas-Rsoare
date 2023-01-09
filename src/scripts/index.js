@@ -1,23 +1,96 @@
-import { getAllcompanies } from './requests.js'
+import { getAllCompany, getAllsectors, getAllCompanyBysector } from './requests.js'
 
-async function renderCard() {
-    const ul = document.querySelector('.setor__list--container')
-    const allCompanies = await getAllcompanies()
 
-    allCompanies.forEach(Companie => {
-        const createCompanie = createCard(Companie)
-        ul.appendChild(createCompanie)
+function openSelectMenu() {
+    const buttonOpen = document.querySelector('.fa-arrow-down')
+    const select = document.querySelector('.sector__optios--container')
+
+
+    buttonOpen.addEventListener('click', () => {
+
+        select.classList.toggle('open__menu')
+
+
+        if (select.classList.contains('open__menu')) {
+            select.innerHTML = " "
+
+            select.insertAdjacentHTML('afterbegin',
+                '<option value="" class="sector__option">Selecione um setor</option>'
+            )
+            getCompanyBysector()
+            renderOptionsSector()
+        } else {
+            renderCard()
+        }
+    })
+}
+function getCompanyBysector() {
+    const ul = document.querySelector('.sector__list--container')
+    const select = document.querySelector('.sector__optios--container')
+    select.addEventListener('change', async () => {
+        let selectValue = select.value
+
+        const CompanyBysector = await getAllCompanyBysector(selectValue)
+
+        renderCompanyBysector(CompanyBysector)
+
+    })
+}
+
+function renderCompanyBysector(Companys) {
+    const ul = document.querySelector('.sector__list--container')
+
+    ul.innerHTML = " "
+    Companys.forEach(Company => {
+
+        const renderCompanys = createCard(Company)
+
+        ul.appendChild(renderCompanys)
     });
 }
 
-function createCard({name,opening_hours,sectors}) {
+async function renderOptionsSector() {
+    const select = document.querySelector('.sector__optios--container')
+    const allSectors = await getAllsectors()
+
+    allSectors.forEach(sector => {
+        const renderSector = createOptionsSector(sector)
+
+        select.appendChild(renderSector)
+
+    })
+
+}
+
+function createOptionsSector({ description }) {
+    const option = document.createElement('option')
+
+    option.classList.add('sector__option')
+
+    option.value = description
+    option.innerText = description
+
+    return option
+}
+
+async function renderCard() {
+    const ul = document.querySelector('.sector__list--container')
+    const allCompanys = await getAllCompany()
+
+    allCompanys.forEach(Company => {
+        const createCompany = createCard(Company)
+        ul.appendChild(createCompany)
+    });
+}
+
+function createCard({ name, opening_hours, sectors }) {
     const li = document.createElement('li')
     const h2 = document.createElement('h2')
     const div = document.createElement('div')
     const span = document.createElement('span')
     const p = document.createElement('p')
 
-    li.classList.add('setor__list--item')
+    li.classList.add('sector__list--item')
     h2.classList.add('list__item--title')
     div.classList.add('list__tag--container')
     span.classList.add('list__tag--hours')
@@ -73,9 +146,9 @@ function goPageRegister() {
 }
 
 
-
-openMenuButton()
-closeMenuButton()
-goPageRegister()
+openSelectMenu()
 goPageLogin()
+goPageRegister()
+closeMenuButton()
+openMenuButton()
 renderCard() 

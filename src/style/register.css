@@ -1,7 +1,5 @@
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header__boxShadow {
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.20);
 }
 
 .header__container {
@@ -11,7 +9,6 @@
     justify-content: space-between;
     height: 4.25rem;
     padding: 0 1rem;
-    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.20);
 }
 
 .header__logo--container {
@@ -31,11 +28,17 @@
 }
 
 .fa-bars {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     position: absolute;
-    right: 1rem;
+    right: 1.5rem;
 }
 
+.fa-x {
+    display: none;
+    font-size: 1.2rem;
+    position: absolute;
+    right: 1.5rem;
+}
 .main__container {
     background-image: url("/src/assets/img/Rectangle 7.svg");
     background-position: center;
@@ -86,7 +89,7 @@
     outline: none;
 }
 
-.form__login {
+.form__button--register {
     height: 3rem;
     font-size: 1.2rem;
     font-weight: var(--font-weight-bold);
@@ -95,7 +98,7 @@
     background-color: var(--button-background-blue);
 }
 
-.form__register {
+.form__button--login {
     height: 3rem;
     font-size: 1.2rem;
     font-weight: var(--font-weight-bold);
@@ -103,13 +106,25 @@
     color: var(--text-color-blue);
 }
 
-.nav__desktop--buttons {
-    width: 18rem;
-    display: none;
-    gap: 1rem;
+.header__mobile--container {
+    position: relative;
+    width: 100%;
 }
 
-.nav__button--login {
+.nav__mobile--buttons {
+    display: none;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5.5rem;
+    background-color: var(--grey-100);
+    z-index: 1;
+    gap: 5%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12);
+}
+
+.nav__button--home {
     width: 9.3rem;
     height: 3rem;
     font-size: 1.1rem;
@@ -119,7 +134,7 @@
     background-color: var(--grey-100);
 }
 
-.nav__button--register {
+.nav__button--login {
     width: 9.3rem;
     height: 3rem;
     font-size: 1.1rem;
@@ -127,6 +142,10 @@
     background-color: var(--button-background-blue);
     border: none;
     color: var(--grey-100);
+}
+
+.open__menu {
+    display: flex;
 }
 
 @media screen and (min-width:769px) {
@@ -140,8 +159,19 @@
         display: none;
     }
 
-    .nav__desktop--buttons {
+    .fa-x {
+        display: none;
+    }
+
+    .nav__mobile--buttons {
         display: flex;
+        background: none;
+        box-shadow: none;
+        top: 10px;
+        right: 1rem;
+        z-index: 0;
+        width: 20rem;
+        height: 3rem;
     }
 
     .form__container {
