@@ -1,13 +1,11 @@
-import {login} from './requests.js'
-
-
+import { login, checkTypeUser,} from './requests.js'
 
 function LoginUser() {
     const inputs = document.querySelectorAll('.form__container > input')
     const buttonLogin = document.querySelector('.form__button--login')
     let dataUser = {}
 
-    buttonLogin.addEventListener('click', async(event) => {
+    buttonLogin.addEventListener('click', async (event) => {
         event.preventDefault()
 
         inputs.forEach(input => {
@@ -15,6 +13,8 @@ function LoginUser() {
         })
 
         const request = await login(dataUser)
+
+        checkTypeUser(request)
 
         localStorage.setItem("@KenzieEmpresas:user", JSON.stringify(request));
 
@@ -66,8 +66,10 @@ function closeMenuButton() {
         buttonClose.style.display = 'none'
     })
 }
+
 openMenuButton()
 closeMenuButton()
 goPageRegister()
 goPagehome()
 LoginUser()
+

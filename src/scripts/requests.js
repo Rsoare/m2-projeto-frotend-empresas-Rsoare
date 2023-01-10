@@ -1,5 +1,6 @@
+import {toast} from './Toastfy.js'
 
-const { token } = getUser()
+const { token } = getUser() || {}
 
 const baseUrl = 'http://localhost:6278'
 const requestHeaders = {
@@ -7,6 +8,7 @@ const requestHeaders = {
     Authorization: `Bearer ${token}`,
 };
 
+const red = "#CE4646";
 export function getUser() {
     const user = JSON.parse(localStorage.getItem("@KenzieEmpresas:user")) || {}
 
@@ -53,23 +55,8 @@ export async function login(data) {
 
     const loginDataJson = await loginData.json()
 
-
-    const verifyUserAdmin = await checkTypeUser()
-
-    console.log(verifyUserAdmin)
-
     if (!loginData.ok) {
-        console.log(loginDataJson.error)
-    } else {
-
-        if (verifyUserAdmin == true) {
-
-            window.location.replace('../../src/pages/admin.html')
-
-        } else{
-            
-            window.location.replace('../../src/pages/userNotHired.html')
-        }
+        toast(loginDataJson.error,red)
     }
 
     return loginDataJson
@@ -77,14 +64,28 @@ export async function login(data) {
 }
 
 
-export async function checkTypeUser() {
+export async function checkTypeUser(objToken) {
+    const{token} = objToken
+
     const TypeUser = await fetch(`${baseUrl}/auth/validate_user`, {
         method: 'GET',
-        headers: requestHeaders
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        }
     })
 
     const TypeUserJson = await TypeUser.json()
 
+    const { is_admin } = TypeUserJson
 
-    return TypeUserJson.is_admin
-}   
+    if (is_admin == true) {
+        window.location.replace('../../src/pages/admin.html')
+
+    } else if (is_admin == false) {
+        window.location.replace('../../src/pages/userNotHired.html')
+    }
+
+    return TypeUserJson
+}
+
