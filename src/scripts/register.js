@@ -1,3 +1,27 @@
+import { createNewUser } from './requests.js'
+
+function CreateUser() {
+    const inputs = document.querySelectorAll('.form__container > input')
+    const select = document.querySelector('.form__options')
+    const buttonRegister = document.querySelector('.form__button--register')
+
+    let userData = {}
+
+    select.addEventListener('change', (event) => {
+        let selectValue = select.value
+        userData[select.name] = selectValue 
+    })
+
+    buttonRegister.addEventListener('click',async (event) => {
+        event.preventDefault()
+        inputs.forEach(input => {
+            userData[input.name] = input.value
+        });
+        
+        const request = await createNewUser(userData)
+    })
+}
+
 function goPagehome() {
     const buttonhome = document.querySelector('.nav__button--home')
 
@@ -41,7 +65,9 @@ function closeMenuButton() {
         buttonClose.style.display = 'none'
     })
 }
+
 openMenuButton()
 closeMenuButton()
 goPagelogin()
 goPagehome()
+CreateUser()

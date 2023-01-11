@@ -1,19 +1,21 @@
-import {toast} from './Toastfy.js'
+import { toast } from './toastfy.js'
 
-const { token } = getUser() || {}
+export const baseUrl = 'http://localhost:6278'
+const { token } = getUser() 
 
-const baseUrl = 'http://localhost:6278'
-const requestHeaders = {
+export const requestHeaders = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
 };
 
-const red = "#CE4646";
 export function getUser() {
     const user = JSON.parse(localStorage.getItem("@KenzieEmpresas:user")) || {}
 
     return user
 }
+
+export const red = "#CE4646";
+
 
 export async function getAllCompany() {
     const Company = await fetch(`${baseUrl}/companies`, {
@@ -56,7 +58,7 @@ export async function login(data) {
     const loginDataJson = await loginData.json()
 
     if (!loginData.ok) {
-        toast(loginDataJson.error,red)
+        toast(loginDataJson.error, red)
     }
 
     return loginDataJson
@@ -65,7 +67,7 @@ export async function login(data) {
 
 
 export async function checkTypeUser(objToken) {
-    const{token} = objToken
+    const { token } = objToken
 
     const TypeUser = await fetch(`${baseUrl}/auth/validate_user`, {
         method: 'GET',
@@ -87,5 +89,22 @@ export async function checkTypeUser(objToken) {
     }
 
     return TypeUserJson
+}
+
+export async function createNewUser(data){
+    const newUser = await fetch(`${baseUrl}/auth/register`,{
+        method: "POST",
+        headers: requestHeaders,
+        body: JSON.stringify(data)
+    })
+
+    const neWUserJson = await newUser.json()
+
+    if (!newUser.ok) {
+        toast(neWUserJson.error,red)
+    }else{
+        toast("Usuário Criado com sucesso")
+    }
+    return neWUserJson
 }
 

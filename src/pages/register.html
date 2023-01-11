@@ -6,13 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kenzie Empresas - Cadastrar </title>
+
     <script src="https://kit.fontawesome.com/aefd41ff83.js" crossorigin="anonymous" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
+    <script type="module" src="/src/scripts/register.js" defer></script>
 
     <link rel="stylesheet" href="/src/style/reset.css">
     <link rel="stylesheet" href="/src/style/globalStyles.css">
     <link rel="stylesheet" href="/src/style/register.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-    <script type="module" src="/src/scripts/register.js" defer></script>
 </head>
 
 <body>
@@ -46,6 +49,9 @@
                 <label for="professional_level" hidden></label>
                 <select name="professional_level" class="form__options">
                     <option value="" class="form__options--item">Nível profissional</option>
+                    <option value="senior" class="form__options--item">Sênior</option>
+                    <option value="pleno" class="form__options--item">Pleno</option>
+                    <option value="junior" class="form__options--item">Junior</option>
                 </select>
                 <label for="password" hidden>password</label>
                 <input type="password" name="password" class="form__password" placeholder="Sua senha">
