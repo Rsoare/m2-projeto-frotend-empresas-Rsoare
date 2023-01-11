@@ -1,15 +1,78 @@
-import { getAllDepartament } from './requests_admin_department.js'
+import { getAllDepartament, createDepartament, getDepartamentByCompany } from './requests_admin_department.js'
 
-import { getAllCompany } from "./requests.js"
+import { getAllCompany } from './requests.js'
 
+import { modalCreateDepartment } from './modal__admin__department.js'
+
+
+
+
+function renderDepartamentByCompany(departaments) {
+    const ul = document.querySelector('.department__list')
+
+    ul.innerHTML = " "
+
+    departaments.forEach(departament => {
+        
+        const renderDepartaments = createCardDepartment(departament)
+
+        ul.appendChild(renderDepartaments)
+    })
+
+}
+
+function departamentByCompany() {
+    const selectMain = document.querySelector('.department__header--select')
+
+    selectMain.addEventListener('change', async () => {
+        let selectValue = selectMain.value
+        
+        const departaments = await getDepartamentByCompany(selectValue)
+
+        renderDepartamentByCompany(departaments)
+    })
+}
+
+function createDepartment() {
+    const ul = document.querySelector('.department__list')
+    const modal = document.querySelector('.modal__departament--create')
+    const inputName = document.querySelector('.departament__input--name')
+    const inputDescription = document.querySelector('.departament__input--description')
+    const select = document.querySelector('.departament__select')
+    const button = document.querySelector('.departament__button--create')
+
+
+    let departmentData = {}
+
+    select.addEventListener('change', () => {
+        departmentData[select.name] = select.value
+
+    })
+
+    button.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        departmentData[inputName.name] = inputName.value
+        departmentData[inputDescription.name] = inputDescription.value
+
+        modal.close()
+
+        createDepartament(departmentData)
+
+        ul.innerHTML = " "
+
+        renderCardDepartment()
+    })
+}
 
 async function RenderCompanyOptions() {
     const select = document.querySelector('.department__header--select')
     const AllCompany = await getAllCompany()
 
-    AllCompany.forEach(Company=> {
-        
+    AllCompany.forEach(Company => {
+
         const renderOptions = createCompanyOptions(Company)
+
 
         select.appendChild(renderOptions)
     })
@@ -19,15 +82,16 @@ async function RenderCreateCompanyOptions() {
     const select = document.querySelector('.departament__select')
     const AllCompany = await getAllCompany()
 
-    AllCompany.forEach(Company=> {
-        
+    AllCompany.forEach(Company => {
+
         const renderOptions = createCompanyOptions(Company)
 
         select.appendChild(renderOptions)
+
     })
 }
 
-function createCompanyOptions({uuid,name}) {
+function createCompanyOptions({ uuid, name }) {
     const option = document.createElement('option')
 
     option.innerText = name
@@ -36,15 +100,28 @@ function createCompanyOptions({uuid,name}) {
     return option
 }
 
-function opemModalCreateDepartment() {
+function openModalCreateDepartment() {
     const button = document.querySelector('.department__button--create')
     const modal = document.querySelector('.modal__departament--create')
+
+
     button.addEventListener('click', (event) => {
         event.preventDefault()
 
+        modal.innerHTML = " "
+
+        const formModal = modalCreateDepartment()
+
+        modal.appendChild(formModal)
+
         RenderCreateCompanyOptions()
 
+        createDepartment()
+
         modal.showModal()
+
+        closeModal()
+
     })
 }
 
@@ -101,7 +178,15 @@ function createCardDepartment({ companies, description, name }) {
 
     return li
 }
+function closeModal() {
+    const button = document.querySelector('.form__departament--container > span')
+    const modal = document.querySelector('.modal__departament--create')
+    button.addEventListener('click', () => {
+        modal.close()
+    })
+}
 
-RenderCompanyOptions() 
-opemModalCreateDepartment()
+departamentByCompany()
+RenderCompanyOptions()
+openModalCreateDepartment()
 renderCardDepartment()

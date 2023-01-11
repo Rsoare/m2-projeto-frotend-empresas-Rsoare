@@ -25,7 +25,6 @@ function openSelectMenu() {
     })
 }
 function getCompanyBysector() {
-    const ul = document.querySelector('.sector__list--container')
     const select = document.querySelector('.sector__optios--container')
     select.addEventListener('change', async () => {
         let selectValue = select.value
@@ -46,7 +45,7 @@ function renderCompanyBysector(Companys) {
         const renderCompanys = createCard(Company)
 
         ul.appendChild(renderCompanys)
-    });
+    })
 }
 
 async function renderOptionsSector() {
