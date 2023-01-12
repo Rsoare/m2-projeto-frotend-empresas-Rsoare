@@ -32,7 +32,6 @@ export async function editUsers(id,data) {
 
     const userJson = await user.json()
 
-
     return userJson
 }
 

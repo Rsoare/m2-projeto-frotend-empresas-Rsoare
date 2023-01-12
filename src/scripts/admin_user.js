@@ -82,8 +82,8 @@ async function modalDeleteUser() {
     const listUser = await registeredUser()
 
     openModalDelete.forEach((button, index) => {
-        let { uuid } = listUser[index]
-        let { username } = listUser[index]
+        let { uuid,username  } = listUser[index]
+        
         button.addEventListener('click', () => {
 
             modal.innerHTML = " "

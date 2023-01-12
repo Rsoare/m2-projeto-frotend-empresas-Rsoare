@@ -1,9 +1,8 @@
-import { getAllDepartament, createDepartament, getDepartamentByCompany } from './requests_admin_department.js'
+import { getAllDepartament, createDepartament, getDepartamentByCompany,} from './requests_admin_department.js'
 
 import { getAllCompany } from './requests.js'
 
-import { modalCreateDepartment } from './modal__admin__department.js'
-
+import { modalCreateDepartment,modalDeleteDepartament,modalEditDepartament,modalviewDepartaments} from './modal__admin__department.js'
 
 
 
@@ -133,7 +132,10 @@ async function renderCardDepartment() {
         const rendeCard = createCardDepartment(Department)
 
         ul.appendChild(rendeCard)
-    });
+    })
+    modalDeleteDepartament()
+    modalEditDepartament()
+    modalviewDepartaments()
 }
 
 function createCardDepartment({ companies, description, name }) {
@@ -156,6 +158,7 @@ function createCardDepartment({ companies, description, name }) {
     imgView.classList.add('department__icon--view')
     imgEdit.classList.add('department__icon--edit')
     imgDelete.classList.add('department__icon--delete')
+    
 
     imgView.src = "../assets/icon/Vector (2).svg"
     imgEdit.src = "../assets/icon/Vector (3).svg"
@@ -176,7 +179,9 @@ function createCardDepartment({ companies, description, name }) {
     div.append(imgView, imgEdit, imgDelete)
     li.append(h3, p, h2, div)
 
+
     return li
+
 }
 function closeModal() {
     const button = document.querySelector('.form__departament--container > span')
