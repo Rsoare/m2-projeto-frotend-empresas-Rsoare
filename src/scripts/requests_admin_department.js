@@ -4,7 +4,7 @@ import { requestHeaders, red, baseUrl } from './requests.js'
 
 export async function getAllDepartament() {
 
-    const departament= await fetch(`${baseUrl}/departments`, {
+    const departament = await fetch(`${baseUrl}/departments`, {
         method: 'GET',
         headers: requestHeaders
     })
@@ -55,7 +55,7 @@ export async function deleteDepartaments(id) {
 
 }
 
-export async function editDepartaments(id,data) {
+export async function editDepartaments(id, data) {
     const departament = await fetch(`${baseUrl}/departments/${id}`, {
         method: "PATCH",
         headers: requestHeaders,
@@ -104,3 +104,5 @@ export async function dismissUsers(id) {
     return userJson
 
 }
+
+

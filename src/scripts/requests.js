@@ -1,12 +1,13 @@
 import { toast } from './toastfy.js'
 
+
 export const baseUrl = 'http://localhost:6278'
-const { token } = getUser() 
+const { token } = getUser()
 
 export const requestHeaders = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
-};
+}
 
 export function getUser() {
     const user = JSON.parse(localStorage.getItem("@KenzieEmpresas:user")) || {}
@@ -84,15 +85,15 @@ export async function checkTypeUser(objToken) {
     if (is_admin == true) {
         window.location.replace('../../src/pages/admin.html')
 
-    } else if (is_admin == false) {
-        window.location.replace('../../src/pages/userNotHired.html')
+    } else if (is_admin == false) {     
+        window.location.replace('../../src/pages/user_hired.html')
     }
 
     return TypeUserJson
 }
 
-export async function createNewUser(data){
-    const newUser = await fetch(`${baseUrl}/auth/register`,{
+export async function createNewUser(data) {
+    const newUser = await fetch(`${baseUrl}/auth/register`, {
         method: "POST",
         headers: requestHeaders,
         body: JSON.stringify(data)
@@ -101,8 +102,8 @@ export async function createNewUser(data){
     const neWUserJson = await newUser.json()
 
     if (!newUser.ok) {
-        toast(neWUserJson.error,red)
-    }else{
+        toast(neWUserJson.error, red)
+    } else {
         toast("Usuário Criado com sucesso")
     }
     return neWUserJson

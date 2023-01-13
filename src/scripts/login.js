@@ -15,6 +15,7 @@ function LoginUser() {
         const request = await login(dataUser)
 
         checkTypeUser(request)
+        
 
         localStorage.setItem("@KenzieEmpresas:user", JSON.stringify(request));
 

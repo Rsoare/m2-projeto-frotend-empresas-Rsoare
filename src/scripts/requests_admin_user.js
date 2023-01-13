@@ -12,6 +12,8 @@ export async function registeredUser() {
 
     return userJson
 }
+
+
 export async function deleteUsers(id) {
     const user = await fetch(`${baseUrl}/admin/delete_user/${id}`, {
         method: "DELETE",

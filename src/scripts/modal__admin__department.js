@@ -1,5 +1,4 @@
-import { getAllDepartament, deleteDepartaments, editDepartaments } from './requests_admin_department.js'
-
+import { getAllDepartament, deleteDepartaments, editDepartaments, userOutOfWork, hireUsers, dismissUsers } from './requests_admin_department.js'
 import { registeredUser } from './requests_admin_user.js'
 
 export function modalCreateDepartment() {
@@ -113,6 +112,7 @@ function deleteDepartament(id) {
         window.location.reload()
     })
 }
+
 function closeModalDelete() {
     const button = document.querySelector('.modal__close--deleteDepartament')
     const modal = document.querySelector('.modal__container--delete')
@@ -188,7 +188,7 @@ function createModalEdit() {
     label.setAttribute('hidden', "")
 
     input.name = "description"
-    //input.placeholder = "Valores anteriores da descrição "
+    
     input.type = "text"
 
     span.innerText = "X"
@@ -210,48 +210,75 @@ function closeModalEdit() {
     })
 }
 
-async function createListViewDepartaments() {
-    const ul = document.querySelector('.modal__select--Visualize')
+async function renderListViewDismissUser(id) {
+    const ul = document.querySelector('.modal__list--view')
     const users = await registeredUser()
 
-    select.innerHTML = " "
 
     users.forEach(user => {
-        let { username, uuid } = user
+        let { username, uuid, professional_level, department_uuid } = user
 
-        const renderUser = createOptionsViewDepartaments(username, uuid)
+        if (id == department_uuid) {
 
-        ul.appendChild(renderUser)
+            const renderUser = ListViewDismissUser(username, professional_level, uuid)
 
+            ul.appendChild(renderUser)
+
+        }
     })
+    dismissUser()
 }
 
-// function createListViewDepartaments() {
-//     const li = document.querySelector('li')
-//     const h2 = document.querySelector('h2')
-//     const span = document.querySelector('span')
-//     const h3 = document.querySelector('h3')
-//     const button = document.querySelector('button')
+function ListViewDismissUser(username, professional_level, uuid) {
+    const li = document.createElement('li')
+    const h2 = document.createElement('h2')
+    const span = document.createElement('span')
+    const h3 = document.createElement('h3')
+    const button = document.createElement('button')
 
-//     li.classList.add('modal__list--item')
-//     button.classList.add('modal__button--dismiss')
+    li.classList.add('modal__list--iten')
+    button.classList.add('modal__button--dismiss')
 
-//     h2.innerText = ""
-//     span.innerText = ""
-//     h3.innerText = ""
+    h2.innerText = username
+    span.innerText = professional_level
+    h3.innerText = ""
+    button.innerText = "Desligar"
+    button.value = uuid
 
-//     li.append(h2, span, h3, button)
+    li.append(h2, span, h3, button)
 
-//     return li
+    return li
 
-// }
+}
+
+function hireUser(Companyid) {
+    const select = document.querySelector('.modal__select--Visualize')
+    const button = document.querySelector('.modal__button--hire')
+
+    let userData = {}
+
+
+    select.addEventListener('change', () => {
+        userData[select.name] = select.value
+    })
+
+    button.addEventListener('click', () => {
+        userData['department_uuid'] = Companyid
+
+        hireUsers(userData)
+    })
+
+}
 
 async function RenderOptionsViewDepartaments() {
     const select = document.querySelector('.modal__select--Visualize')
-    const users = await registeredUser()
+    const users = await userOutOfWork()
 
     select.innerHTML = " "
 
+    select.insertAdjacentHTML('afterbegin',
+        '<option value="" class="modal__select--Visualize">Selecione um usuario</option>'
+    )
     users.forEach(user => {
         let { username, uuid } = user
 
@@ -267,7 +294,6 @@ function createOptionsViewDepartaments(name, id) {
 
     options.innerText = name
     options.value = id
-    options.setAttribute('name', 'user_uuid')
 
     return options
 }
@@ -277,8 +303,6 @@ export async function modalviewDepartaments() {
     const openModalview = document.querySelectorAll('.department__icon--view')
     const modal = document.querySelector('.modal__departament--view')
     const listDepartament = await getAllDepartament()
-
-
 
     openModalview.forEach((button, index) => {
         let { companies, name, description, uuid } = listDepartament[index]
@@ -293,13 +317,18 @@ export async function modalviewDepartaments() {
 
             RenderOptionsViewDepartaments()
 
+            renderListViewDismissUser(uuid)
+
+            hireUser(uuid)
+
+            //renderListViewDismissUser()
             modal.showModal()
 
         })
     })
 }
 
-function createModalviewDepartaments(name, description, companies,) {
+function createModalviewDepartaments(name, description, companies, uuid) {
     const div = document.createElement('div')
     const h2Title = document.createElement('h2')
     const pSubTitle = document.createElement('p')
@@ -318,11 +347,25 @@ function createModalviewDepartaments(name, description, companies,) {
     pSubTitle.innerText = description
     h3.innerText = companies.name
 
-    select.name = "department_uuid"
+    select.name = "user_uuid"
 
     buttonHire.innerText = "Contratar"
 
     div.append(h2Title, pSubTitle, h3, select, buttonHire, ul)
 
     return div
-} 
+}
+
+function dismissUser() {
+    const buttons = document.querySelectorAll('.modal__button--dismiss')
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+
+            let { value } = button
+            
+            dismissUsers(value)
+        })
+    })
+}
+
