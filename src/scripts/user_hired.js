@@ -184,26 +184,28 @@ function createModalEditUser() {
 
     inputName.type = 'text'
     inputName.name = 'username'
-
+    inputName.placeholder = "Seu nome"
 
     labelpassword.setAttribute('for', 'password')
     labelpassword.setAttribute('hidden', "")
 
     inputpassword.type = 'text'
     inputpassword.name = 'password'
+    inputpassword.placeholder = "Seu e-mail"
 
     labelEmail.setAttribute('for', 'email')
     labelEmail.setAttribute('hidden', "")
 
     inputEmail.type = 'text'
     inputEmail.name = 'email'
+    inputEmail.placeholder = "Sua senha"
 
     button.innerText = 'Editar Usuario'
 
     span.innerText = 'X'
 
 
-    form.append(labelName, inputName, labelEmail, inputEmail, labelpassword, inputpassword, button, span)
+    form.append(p, labelName, inputName, labelEmail, inputEmail, labelpassword, inputpassword, button, span)
 
     return form
 }

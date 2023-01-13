@@ -3,6 +3,7 @@ import { registeredUser } from './requests_admin_user.js'
 
 export function modalCreateDepartment() {
     const form = document.createElement('form')
+    const p =document.createElement('p')
     const labelName = document.createElement('label')
     const inputName = document.createElement('input')
     const labelDescription = document.createElement('label')
@@ -45,11 +46,13 @@ export function modalCreateDepartment() {
 
     button.innerText = 'Criar o Departamento'
 
+    p.innerText = 'Criar Departamento'
+
     span.innerText = 'X'
 
     select.appendChild(option)
 
-    form.append(labelName, inputName, labelDescription, inputDescription, select, button, span)
+    form.append(p,labelName, inputName, labelDescription, inputDescription, select, button, span)
 
     return form
 }
@@ -64,7 +67,7 @@ function createModalDelete(departmentName) {
     button.classList.add('modal__button--deleteDepartament')
     ButtonCloseModal.classList.add('modal__close--deleteDepartament')
 
-    p.innerText = `Realmente deseja deletar Departamento ${departmentName} e demitir seus funcionários?`
+    p.innerText = `Realmente deseja deletar o Departamento ${departmentName} e demitir seus funcionários?`
     button.innerText = 'Confirmar'
     ButtonCloseModal.innerText = 'X'
     div.append(p, button, ButtonCloseModal)
@@ -74,7 +77,7 @@ function createModalDelete(departmentName) {
 
 export async function modalDeleteDepartament() {
     const openModalDelete = document.querySelectorAll('.department__icon--delete')
-    const modal = document.querySelector('.modal__container--delete')
+    const modal = document.querySelector('.modal__container--deleteDdepartament')
     const listDepartament = await getAllDepartament()
 
 
@@ -100,7 +103,7 @@ export async function modalDeleteDepartament() {
 }
 
 function deleteDepartament(id) {
-    const modal = document.querySelector('.modal__container--delete')
+    const modal = document.querySelector('.modal__container--deleteDdepartament')
     const buttonDelete = document.querySelector('.modal__button--deleteDepartament')
 
     buttonDelete.addEventListener('click', () => {
@@ -115,7 +118,7 @@ function deleteDepartament(id) {
 
 function closeModalDelete() {
     const button = document.querySelector('.modal__close--deleteDepartament')
-    const modal = document.querySelector('.modal__container--delete')
+    const modal = document.querySelector('.modal__container--deleteDdepartament')
 
     button.addEventListener('click', () => {
         modal.close()
@@ -175,28 +178,26 @@ function createModalEdit() {
     const div = document.createElement('div')
     const p = document.createElement('p')
     const label = document.createElement('label')
-    const input = document.createElement('input')
+    const text = document.createElement('textarea')
     const button = document.createElement('button')
     const span = document.createElement('span')
 
     div.classList.add('form__container')
-    input.classList.add('form__Departament--edit')
+    text.classList.add('form__Departament--edit')
     button.classList.add('form__edit--button')
     span.classList.add('modal__close--edit--Departament')
 
     label.setAttribute('for', 'description')
     label.setAttribute('hidden', "")
 
-    input.name = "description"
+    text.name = "description"
     
-    input.type = "text"
-
     span.innerText = "X"
 
     p.innerText = "Editar Departamento"
     button.innerText = "Salvar alterações"
 
-    div.append(p, label, input, button, span)
+    div.append(p, label, text, button, span)
 
     return div
 }
@@ -321,14 +322,13 @@ export async function modalviewDepartaments() {
 
             hireUser(uuid)
 
-            //renderListViewDismissUser()
             modal.showModal()
 
         })
     })
 }
 
-function createModalviewDepartaments(name, description, companies, uuid) {
+function createModalviewDepartaments(name, description, companies,) {
     const div = document.createElement('div')
     const h2Title = document.createElement('h2')
     const pSubTitle = document.createElement('p')

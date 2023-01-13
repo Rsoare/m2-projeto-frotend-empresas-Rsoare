@@ -1,0 +1,279 @@
+.modal__departament--create {
+    width: 31rem;
+    height: 23rem;
+    border: none;
+    padding: 2.5rem;
+}
+
+.form__departament--container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form__departament--container>p {
+    color: var(--grey-900);
+    font-weight: var(--font-weight-bold);
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.form__departament--container>input,
+select {
+    height: 3.25rem;
+    font-size: 1.1rem;
+    padding-left: 1rem;
+    border: solid 2px var(--borde--input-color);
+
+}
+
+.form__departament--container>input:focus,
+select {
+    outline: 0;
+}
+
+.form__departament--container,
+select {
+    color: var(--text-color-blue);
+
+}
+
+.form__departament--container>select>option {
+    color: var(--text-color-blue);
+}
+
+.form__departament--container>button {
+    margin-top: 1rem;
+    height: 3rem;
+    border: none;
+    background-color: var(--button-background-blue);
+    color: var(--grey-100);
+    font-weight: var(--font-weight-bold);
+    font-size: 1.1rem;
+}
+
+.form__departament--container>span {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--grey-900);
+    right: -1rem;
+    top: -1rem;
+    cursor: pointer;
+}
+
+.modal__container--deleteDdepartament,
+.modal__container--delete {
+    position: relative;
+    width: 43rem;
+    height: 21rem;
+    border: none;
+}
+
+.modal__container--deleteDdepartament>div,
+.modal__container--delete>div {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 27rem;
+    height: 100%;
+    text-align: center;
+}
+
+.modal__container--deleteDdepartament>div>p,
+.modal__container--delete>div>p {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.modal__button--deleteDepartament,
+.modal__button--delete {
+    width: 27rem;
+    height: 3rem;
+    border: none;
+    background-color: var(--button-background-green);
+    color: var(--grey-100);
+}
+
+.modal__close--deleteDepartament,
+.modal__close--delete {
+    position: absolute;
+    border: none;
+    background: transparent;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.modal__departament--edit,
+.modal__container--edit {
+    position: relative;
+    height: 19.6rem;
+    width: 30.6rem;
+    border: none;
+    padding: 2rem;
+}
+
+.modal__departament--edit>div,
+.modal__container--edit>div {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal__departament--edit>div>p,
+.modal__container--edit>div>p {
+    font-size: 2.25rem;
+}
+
+.modal__departament--edit>div>textarea {
+    height: 7rem;
+    width: 24.5rem;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    resize: none;
+    border: solid 2px var(--borde--input-color);
+}
+
+.modal__departament--edit>div>button {
+    width: 26rem;
+    height: 3rem;
+    border: none;
+    background-color: var(--button-background-green);
+    color: var(--grey-100);
+}
+
+.modal__departament--edit>div>span,
+.modal__container--edit>div>span {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.modal__container--edit>div>button {
+    height: 3rem;
+    border: none;
+    background-color: var(--button-background-blue);
+    color: var(--grey-100);
+    font-weight: var(--font-weight-bold);
+    font-size: 1.1rem;
+}
+
+.modal__departament--view {
+    width: 53.3rem;
+    height: 39.8rem;
+    padding: 2rem;
+    position: relative;
+    border: none;
+}
+
+.modal__departament--view>div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal__departament--view>div>h2 {
+    font-size: 2.25rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1rem;
+}
+
+.modal__departament--view>div>p {
+    font-size: 1.7rem;
+    font-weight: var(--font-weight-bold);
+    width: 40%;
+}
+
+.modal__departament--view>div>h3 {
+    font-size: 1.1rem;
+}
+
+.modal__departament--view>div>select {
+    position: absolute;
+    width: 50%;
+    right: 36px;
+    top: 89px;
+}
+
+.modal__departament--view>div>button {
+    width: 9.8rem;
+    height: 3rem;
+    position: absolute;
+    right: 0;
+    right: 36px;
+    top: 155px;
+    background-color: var(--button-background-green);
+    color: var(--grey-100);
+    font-weight: var(--font-weight-bold);
+    font-size: 1.1rem;
+    border: none;
+}
+
+.modal__list--view {
+    align-self: flex-end;
+    position: absolute;
+    bottom: 60px;
+    left: 36px;
+    width: 55rem;
+    height: 18.1rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding-left: 1rem;
+    background-color: var(--grey-200);
+    overflow-x: auto;
+}
+
+.modal__list--view::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+.modal__list--view::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+}
+
+.modal__list--view>li {
+    background-color: var(--grey-100);
+    min-width: 19.1rem;
+    min-height: 12.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.modal__list--view>li>h2 {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.modal__list--view>li>span {
+    font-size: 1rem;
+}
+
+.modal__list--view>li>button {
+    width: 9.8rem;
+    height: 3rem;
+    background-color: transparent;
+    color: var(--text-color-red);
+    font-weight: var(--font-weight-bold);
+    font-size: 1.1rem;
+    border: none;
+    align-self: center;
+    border: solid 1px var(--text-color-red);
+}

@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="/src/style/reset.css">
     <link rel="stylesheet" href="/src/style/globalStyles.css">
     <link rel="stylesheet" href="/src/style/admin.css">
+    <link rel="stylesheet" href="/src/style/modalAdmin.css">
 
     <script type="module" src="/src/scripts/admin_user.js" defer></script>
     <script type="module" src="/src/scripts/admin_department.js" defer></script>
+
 </head>
 
 <body>
@@ -29,10 +31,10 @@
 
     <main class="main__container">
         <section class="section__container--department">
-            
+
             <div class="department__header--container">
 
-            <p class="department__header--title">Departamentos</p>
+                <p class="department__header--title">Departamentos</p>
 
                 <select name="company_uuid" class="department__header--select">
                     <option value="">Selecionar Empresa</option>
@@ -63,40 +65,44 @@
         </section>
     </main>
     <dialog class="modal__container--delete">
-        
+
     </dialog>
 
     <dialog class="modal__container--edit">
-        <p class="modal__name">Editar Usuário</p>
+        <div>
+            <p class="modal__name">Editar Usuário</p>
 
-        <select name="kind_of_work" class="modal__select--work">
-            <option value="">Selecionar modalidade de trabalho</option>
-            <option value="presencial">Presencial</option>
-            <option value="home office">Home office</option>
-            <option value="híbrido">Hibrido</option>
+            <select name="kind_of_work" class="modal__select--work">
+                <option value="">Selecionar modalidade de trabalho</option>
+                <option value="presencial">Presencial</option>
+                <option value="home office">Home office</option>
+                <option value="híbrido">Hibrido</option>
 
-        </select>
+            </select>
 
-        <select name="professional_level" class="modal__select--professional">
-            <option value="">Selecionar nível profissional</option>
-            <option value="estágio">Estágio</option>
-            <option value="júnior">Júnior</option>
-            <option value="pleno">Pleno</option>
-            <option value="sênior">Sênior</option>
-        </select>
+            <select name="professional_level" class="modal__select--professional">
+                <option value="">Selecionar nível profissional</option>
+                <option value="estágio">Estágio</option>
+                <option value="júnior">Júnior</option>
+                <option value="pleno">Pleno</option>
+                <option value="sênior">Sênior</option>
+            </select>
 
-        <button class="modal__button--edit">Editar</button>
-        <span class="modal__button--closeModal">X</span>
+            <button class="modal__button--edit">Editar</button>
+            <span class="modal__button--closeModal">X</span>
 
+        </div>
     </dialog>
 
+    <dialog class="modal__container--deleteDdepartament">
+    </dialog>
     <dialog class="modal__departament--create">
     </dialog>
 
     <dialog class="modal__departament--edit">
     </dialog>
 
-    <dialog class=" modal__departament--view">
+    <dialog class="modal__departament--view">
         <span class="modal__button--close">X</span>
     </dialog>
 </body>
