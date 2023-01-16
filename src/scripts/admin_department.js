@@ -76,7 +76,7 @@ async function renderCreateCompanyOptions() {
     const select = document.querySelector('.departament__select')
     const allCompany = await getAllCompany()
 
-    allCompany.forEach(company => {d
+    allCompany.forEach(company => {
         const renderOptions = createCompanyOptions(company)
 
         select.appendChild(renderOptions)
