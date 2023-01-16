@@ -40,14 +40,14 @@ export async function createDepartament(data) {
 
 export async function getDepartamentByCompany(id) {
 
-    const Company = await fetch(`${baseUrl}/departments/${id}`, {
+    const company = await fetch(`${baseUrl}/departments/${id}`, {
         method: 'GET',
         headers: requestHeaders
     })
 
-    const CompanyJson = await Company.json()
+    const companyJson = await company.json()
 
-    return CompanyJson
+    return companyJson
 
 }
 

@@ -133,16 +133,16 @@ function createModalDelete(username) {
     const div = document.createElement('div')
     const p = document.createElement('p')
     const button = document.createElement('button')
-    const ButtonCloseModal = document.createElement('button')
+    const buttonCloseModal = document.createElement('button')
 
 
     button.classList.add('modal__button--delete')
-    ButtonCloseModal.classList.add('modal__close--delete')
+    buttonCloseModal.classList.add('modal__close--delete')
 
     p.innerText = `Realmente deseja remover o usuário ${username} ?`
     button.innerText = 'Deletar'
-    ButtonCloseModal.innerText = 'X'
-    div.append(p, button, ButtonCloseModal)
+    buttonCloseModal.innerText = 'X'
+    div.append(p, button, buttonCloseModal)
 
     return div
 }

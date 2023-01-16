@@ -29,20 +29,20 @@ function getCompanyBysector() {
     select.addEventListener('change', async () => {
         let selectValue = select.value
 
-        const CompanyBysector = await getAllCompanyBysector(selectValue)
+        const companyBysector = await getAllCompanyBysector(selectValue)
 
-        renderCompanyBysector(CompanyBysector)
+        renderCompanyBysector(companyBysector)
 
     })
 }
 
-function renderCompanyBysector(Companys) {
+function renderCompanyBysector(companys) {
     const ul = document.querySelector('.sector__list--container')
 
     ul.innerHTML = " "
-    Companys.forEach(Company => {
+    companys.forEach(company => {
 
-        const renderCompanys = createCard(Company)
+        const renderCompanys = createCard(company)
 
         ul.appendChild(renderCompanys)
     })
@@ -76,10 +76,10 @@ async function renderCard() {
     const ul = document.querySelector('.sector__list--container')
     const allCompanys = await getAllCompany()
 
-    allCompanys.forEach(Company => {
-        const createCompany = createCard(Company)
+    allCompanys.forEach(company => {
+        const createCompany = createCard(company)
         ul.appendChild(createCompany)
-    });
+    })
 }
 
 function createCard({ name, opening_hours, sectors }) {

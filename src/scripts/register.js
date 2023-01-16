@@ -1,6 +1,6 @@
 import { createNewUser } from './requests.js'
 
-function CreateUser() {
+function createUser() {
     const inputs = document.querySelectorAll('.form__container > input')
     const select = document.querySelector('.form__options')
     const buttonRegister = document.querySelector('.form__button--register')
@@ -71,4 +71,4 @@ openMenuButton()
 closeMenuButton()
 goPagelogin()
 goPagehome()
-CreateUser()
+createUser()

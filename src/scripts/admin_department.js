@@ -62,12 +62,11 @@ function createDepartment() {
 
 async function renderCompanyOptions() {
     const select = document.querySelector('.department__header--select')
-    const AllCompany = await getAllCompany()
+    const allCompany = await getAllCompany()
 
-    AllCompany.forEach(Company => {
+    allCompany.forEach(company => {
 
-        const renderOptions = createCompanyOptions(Company)
-
+        const renderOptions = createCompanyOptions(company)
 
         select.appendChild(renderOptions)
     })
@@ -75,11 +74,10 @@ async function renderCompanyOptions() {
 
 async function renderCreateCompanyOptions() {
     const select = document.querySelector('.departament__select')
-    const AllCompany = await getAllCompany()
+    const allCompany = await getAllCompany()
 
-    AllCompany.forEach(Company => {
-
-        const renderOptions = createCompanyOptions(Company)
+    allCompany.forEach(company => {d
+        const renderOptions = createCompanyOptions(company)
 
         select.appendChild(renderOptions)
 
@@ -122,10 +120,11 @@ function openModalCreateDepartment() {
 
 export async function renderCardDepartment() {
     const ul = document.querySelector('.department__list')
-    const Departments = await getAllDepartament()
-    Departments.forEach(Department => {
+    const departments = await getAllDepartament()
+    
+    departments.forEach(department => {
 
-        const rendeCard = createCardDepartment(Department)
+        const rendeCard = createCardDepartment(department)
 
         ul.appendChild(rendeCard)
     })
