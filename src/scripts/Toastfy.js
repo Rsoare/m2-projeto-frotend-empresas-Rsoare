@@ -12,7 +12,7 @@ export function toast(text, color) {
             
         },
         offset : { 
-            y : '2rem' 
+            y : '1rem' 
         }
 
     }).showToast()
