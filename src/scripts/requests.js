@@ -21,13 +21,13 @@ export const green = "#4BA036"
 
 
 export async function getAllCompany() {
-    const Company = await fetch(`${baseUrl}/companies`, {
+    const company = await fetch(`${baseUrl}/companies`, {
         method: 'GET',
         Headers: requestHeaders,
     })
-    const CompanyJson = await Company.json()
+    const companyJson = await company.json()
 
-    return CompanyJson
+    return companyJson
 }
 
 export async function getAllsectors() {
@@ -72,7 +72,7 @@ export async function login(data) {
 export async function checkTypeUser(objToken) {
     const { token } = objToken
 
-    const TypeUser = await fetch(`${baseUrl}/auth/validate_user`, {
+    const typeUser = await fetch(`${baseUrl}/auth/validate_user`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
@@ -80,20 +80,20 @@ export async function checkTypeUser(objToken) {
         }
     })
 
-    const TypeUserJson = await TypeUser.json()
+    const typeUserJson = await typeUser.json()
 
-    const { is_admin } = TypeUserJson
+    const { is_admin } = typeUserJson
 
     if (is_admin == true) {
 
         window.location.replace('../../src/pages/admin.html')
 
     } else if (is_admin == false) {
-        
+
         window.location.replace('../../src/pages/user_hired.html')
     }
 
-    return TypeUserJson
+    return typeUserJson
 }
 
 export async function createNewUser(data) {
@@ -110,7 +110,7 @@ export async function createNewUser(data) {
 
         console.error(neWUserJson.error)
     } else {
-        toast("Usuário Criado com sucesso")
+        toast("Usuário Criado com sucesso", green)
 
         setTimeout(() => {
             setTimeoutGoLoginPage()

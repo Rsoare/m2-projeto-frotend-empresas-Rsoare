@@ -1,6 +1,6 @@
 import { login, checkTypeUser,} from './requests.js'
 
-function LoginUser() {
+function loginUser() {
     const inputs = document.querySelectorAll('.form__container > input')
     const buttonLogin = document.querySelector('.form__button--login')
     let dataUser = {}
@@ -72,5 +72,5 @@ openMenuButton()
 closeMenuButton()
 goPageRegister()
 goPagehome()
-LoginUser()
+loginUser()
 

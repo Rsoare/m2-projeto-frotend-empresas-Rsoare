@@ -4,7 +4,6 @@ import {getUser} from './requests.js'
 export async function validateUserPage() {
     const user = getUser()
     
-    console.log(user.token)
     if (user.token == undefined ) {
         window.location.replace('../../index.html')
     }

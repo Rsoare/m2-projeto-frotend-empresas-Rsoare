@@ -185,3 +185,9 @@ img{
     top: -1rem;
     cursor: pointer;
 }
+.section__company--container > p {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    align-self: center;
+    margin-top: 11.5rem;
+}   
