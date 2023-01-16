@@ -117,7 +117,9 @@ function deleteDepartament(id) {
 
         toast('Departamento deletado com sucesso', green)
 
-        resetListDepartament()
+        setTimeout(() =>{
+            window.location.reload()
+        },1500)
 
     })
 }
