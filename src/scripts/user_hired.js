@@ -1,6 +1,14 @@
 import { editUser, userInfo, colleagueDepartment, departmentUser } from "./requests__user.js"
+import {getUser} from './requests.js'
 
-
+export async function validateUserPage() {
+    const user = getUser()
+    
+    console.log(user.token)
+    if (user.token == undefined ) {
+        window.location.replace('../../index.html')
+    }
+}
 async function infoUserPage() {
     const name = document.querySelector('.user__name')
     const emailUser = document.querySelector('.user__list--Email')
@@ -84,8 +92,6 @@ function createCardColleagueDepartment(name, level) {
     return li
 }
 
-
-
 function notHired() {
 
     const p = document.createElement('p')
@@ -129,7 +135,9 @@ function editInfoUser() {
 
         modal.close()
 
-        window.location.reload()
+        setTimeout(() => {
+            window.location.reload()
+        }, 1200)
     })
 }
 
@@ -147,6 +155,8 @@ function renderModalEditUser() {
         modal.showModal()
 
         editInfoUser()
+
+        buttonCloseModal()
     })
 }
 
@@ -209,7 +219,18 @@ function createModalEditUser() {
 
     return form
 }
+
+function buttonCloseModal() {
+    const buttonClose = document.querySelector('.modal__container > form > span')
+    const modal = document.querySelector('.modal__container')
+
+    buttonClose.addEventListener('click', () => {
+        modal.close()
+    })
+}
+
 renderModalEditUser()
 renderUserNotHired()
 infoUserPage()
 userLogout()
+validateUserPage()

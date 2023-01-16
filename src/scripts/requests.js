@@ -15,7 +15,9 @@ export function getUser() {
     return user
 }
 
-export const red = "#CE4646";
+export const red = "#CE4646"
+
+export const green = "#4BA036"
 
 
 export async function getAllCompany() {
@@ -83,9 +85,11 @@ export async function checkTypeUser(objToken) {
     const { is_admin } = TypeUserJson
 
     if (is_admin == true) {
+
         window.location.replace('../../src/pages/admin.html')
 
-    } else if (is_admin == false) {     
+    } else if (is_admin == false) {
+        
         window.location.replace('../../src/pages/user_hired.html')
     }
 
@@ -103,9 +107,18 @@ export async function createNewUser(data) {
 
     if (!newUser.ok) {
         toast(neWUserJson.error, red)
+
+        console.error(neWUserJson.error)
     } else {
         toast("Usuário Criado com sucesso")
+
+        setTimeout(() => {
+            setTimeoutGoLoginPage()
+        }, 1000)
     }
     return neWUserJson
 }
 
+function setTimeoutGoLoginPage() {
+    return window.location.replace('../../src/pages/login.html')
+}

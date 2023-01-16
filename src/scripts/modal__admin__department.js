@@ -1,9 +1,12 @@
-import { getAllDepartament, deleteDepartaments, editDepartaments, userOutOfWork, hireUsers, dismissUsers } from './requests_admin_department.js'
+import { green } from './requests.js'
+import { getAllDepartament, deleteDepartaments, editDepartaments, userOutOfWork, hireUsers, dismissUsers, resetListDepartament } from './requests_admin_department.js'
 import { registeredUser } from './requests_admin_user.js'
+import { toast } from './toastfy.js'
+
 
 export function modalCreateDepartment() {
     const form = document.createElement('form')
-    const p =document.createElement('p')
+    const p = document.createElement('p')
     const labelName = document.createElement('label')
     const inputName = document.createElement('input')
     const labelDescription = document.createElement('label')
@@ -52,7 +55,7 @@ export function modalCreateDepartment() {
 
     select.appendChild(option)
 
-    form.append(p,labelName, inputName, labelDescription, inputDescription, select, button, span)
+    form.append(p, labelName, inputName, labelDescription, inputDescription, select, button, span)
 
     return form
 }
@@ -112,7 +115,10 @@ function deleteDepartament(id) {
 
         modal.close()
 
-        window.location.reload()
+        toast('Departamento deletado com sucesso', green)
+
+        resetListDepartament()
+
     })
 }
 
@@ -126,6 +132,7 @@ function closeModalDelete() {
 }
 
 function editDepartament(id, description) {
+
     const buttonEdit = document.querySelector('.form__edit--button')
     const modal = document.querySelector('.modal__departament--edit')
     const input = document.querySelector('.form__Departament--edit')
@@ -140,8 +147,6 @@ function editDepartament(id, description) {
         DepartamentData[input.name] = input.value
 
         editDepartaments(id, DepartamentData)
-
-        window.location.reload()
 
         modal.close()
 
@@ -191,7 +196,7 @@ function createModalEdit() {
     label.setAttribute('hidden', "")
 
     text.name = "description"
-    
+
     span.innerText = "X"
 
     p.innerText = "Editar Departamento"
@@ -211,7 +216,7 @@ function closeModalEdit() {
     })
 }
 
-async function renderListViewDismissUser(id) {
+export async function renderListViewDismissUser(id) {
     const ul = document.querySelector('.modal__list--view')
     const users = await registeredUser()
 
@@ -221,16 +226,17 @@ async function renderListViewDismissUser(id) {
 
         if (id == department_uuid) {
 
-            const renderUser = ListViewDismissUser(username, professional_level, uuid)
+            const renderUser = listViewDismissUser(username, professional_level, uuid)
 
             ul.appendChild(renderUser)
 
         }
+        
     })
-    dismissUser()
+    dismissUser(id)
 }
 
-function ListViewDismissUser(username, professional_level, uuid) {
+function listViewDismissUser(username, professional_level, uuid) {
     const li = document.createElement('li')
     const h2 = document.createElement('h2')
     const span = document.createElement('span')
@@ -263,15 +269,18 @@ function hireUser(Companyid) {
         userData[select.name] = select.value
     })
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
+
         userData['department_uuid'] = Companyid
 
+        resetRenderModalView(Companyid)
         hireUsers(userData)
+
     })
 
 }
 
-async function RenderOptionsViewDepartaments() {
+async function renderOptionsViewDepartaments() {
     const select = document.querySelector('.modal__select--Visualize')
     const users = await userOutOfWork()
 
@@ -299,35 +308,6 @@ function createOptionsViewDepartaments(name, id) {
     return options
 }
 
-
-export async function modalviewDepartaments() {
-    const openModalview = document.querySelectorAll('.department__icon--view')
-    const modal = document.querySelector('.modal__departament--view')
-    const listDepartament = await getAllDepartament()
-
-    openModalview.forEach((button, index) => {
-        let { companies, name, description, uuid } = listDepartament[index]
-
-        button.addEventListener('click', () => {
-
-            modal.innerHTML = " "
-
-            const renderModal = createModalviewDepartaments(name, description, companies, uuid)
-
-            modal.appendChild(renderModal)
-
-            RenderOptionsViewDepartaments()
-
-            renderListViewDismissUser(uuid)
-
-            hireUser(uuid)
-
-            modal.showModal()
-
-        })
-    })
-}
-
 function createModalviewDepartaments(name, description, companies,) {
     const div = document.createElement('div')
     const h2Title = document.createElement('h2')
@@ -336,6 +316,7 @@ function createModalviewDepartaments(name, description, companies,) {
     const select = document.createElement('select')
     const buttonHire = document.createElement('button')
     const ul = document.createElement('ul')
+    const span = document.createElement('span')
 
     div.classList.add('modal__info--container')
     select.classList.add('modal__select--Visualize')
@@ -351,21 +332,95 @@ function createModalviewDepartaments(name, description, companies,) {
 
     buttonHire.innerText = "Contratar"
 
-    div.append(h2Title, pSubTitle, h3, select, buttonHire, ul)
+    span.innerText = "X"
+
+    div.append(h2Title, pSubTitle, h3, select, buttonHire, ul, span)
 
     return div
 }
 
-function dismissUser() {
+export async function modalviewDepartaments() {
+    const openModalview = document.querySelectorAll('.department__icon--view')
+    const modal = document.querySelector('.modal__departament--view')
+    const listDepartament = await getAllDepartament()
+
+    openModalview.forEach((button, index) => {
+        let { companies, name, description, uuid } = listDepartament[index]
+
+
+        button.addEventListener('click', (event) => {
+
+            modal.innerHTML = " "
+
+            const renderModal = createModalviewDepartaments(name, description, companies, uuid)
+
+            modal.appendChild(renderModal)
+
+            renderOptionsViewDepartaments()
+
+            renderListViewDismissUser(uuid)
+
+            hireUser(uuid)
+
+            closeModalViewEdit()
+
+            modal.showModal()
+
+        })
+    })
+}
+
+
+function dismissUser(idCompany) {
     const buttons = document.querySelectorAll('.modal__button--dismiss')
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
 
             let { value } = button
-            
+
             dismissUsers(value)
+            resetRenderModalView(idCompany)
         })
     })
+    closeModalViewEdit()
 }
 
+export async function resetRenderModalView(company) {
+    const modal = document.querySelector('.modal__departament--view')
+    const listDepartament = await getAllDepartament()
+
+
+    listDepartament.forEach(departament => {
+        let { companies, name, description, uuid } = departament
+        
+        if (uuid == company) {
+
+            modal.innerHTML = " "
+            
+            const renderModal = createModalviewDepartaments(name, description, companies, uuid)
+
+            modal.appendChild(renderModal)
+
+            renderOptionsViewDepartaments()
+
+            renderListViewDismissUser(uuid)
+
+            hireUser(uuid)
+
+            closeModalViewEdit()
+
+        }
+
+    })
+
+}
+
+export function closeModalViewEdit() {
+    const button = document.querySelector('.modal__departament--view > div > span')
+    const modal = document.querySelector('.modal__departament--view ')
+
+    button.addEventListener('click', () => {
+        modal.close()
+    })
+}

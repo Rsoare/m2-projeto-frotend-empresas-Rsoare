@@ -1,5 +1,6 @@
 import { toast } from './toastfy.js'
-import {requestHeaders,red,baseUrl} from './requests.js'
+import { requestHeaders, red, baseUrl, green } from './requests.js'
+import { renderRegisteredUsers} from './admin_user.js'
 
 
 export async function registeredUser() {
@@ -25,7 +26,7 @@ export async function deleteUsers(id) {
     return userJson
 }
 
-export async function editUsers(id,data) {
+export async function requestEditUsers(id, data) {
     const user = await fetch(`${baseUrl}/admin/update_user/${id}`, {
         method: "PATCH",
         headers: requestHeaders,
@@ -34,6 +35,10 @@ export async function editUsers(id,data) {
 
     const userJson = await user.json()
 
+    if (!user.ok) {
+
+        toast(userJson.error, red)
+
+    } 
     return userJson
 }
-

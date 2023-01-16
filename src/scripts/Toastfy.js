@@ -7,11 +7,12 @@ export function toast(text, color) {
         position: 'center',
         style: {
             background: color,
-            width: '15rem',
-            height: '3rem'
+            width: 'fit-content',
+            height: '3rem',
+            
         },
         offset : { 
-            y : '9rem' 
+            y : '2rem' 
         }
 
     }).showToast()

@@ -1,6 +1,7 @@
 import { toast } from './toastfy.js'
-import { requestHeaders, red, baseUrl } from './requests.js'
-
+import { requestHeaders, red, green, baseUrl } from './requests.js'
+import { renderCardDepartment } from './admin_department.js'
+import { resetRenderModalView,} from './modal__admin__department.js'
 
 export async function getAllDepartament() {
 
@@ -24,6 +25,14 @@ export async function createDepartament(data) {
 
     const departamentJson = await departament.json()
 
+    if (!departament.ok) {
+        toast(departamentJson.error, red)
+    } else {
+        toast('Departamento criado com susseso', green)
+
+        resetListDepartament()
+    }
+
     return departamentJson
 
 }
@@ -44,14 +53,14 @@ export async function getDepartamentByCompany(id) {
 
 export async function deleteDepartaments(id) {
 
-    const Departament = await fetch(`${baseUrl}/departments/${id}`, {
+    const departament = await fetch(`${baseUrl}/departments/${id}`, {
         method: 'DELETE',
         headers: requestHeaders
     })
 
-    const DepartamentJson = await Departament.json()
+    const departamentJson = await departament.json()
 
-    return DepartamentJson
+    return departamentJson
 
 }
 
@@ -64,6 +73,14 @@ export async function editDepartaments(id, data) {
 
     const departamentJson = await departament.json()
 
+    if (!departament.ok) {
+
+        toast(departamentJson.error, red)
+
+    } else {
+        toast('Departamento editado com sucesso', green)
+        resetListDepartament()
+    }
     return departamentJson
 
 }
@@ -90,6 +107,14 @@ export async function hireUsers(data) {
 
     const userJson = await user.json()
 
+    if (!user.ok) {
+        toast(userJson.error, red)
+    } else {
+        toast('Usuario contratado com sucesso', green)
+
+        resetRenderModalView()
+        
+    }
     return userJson
 }
 
@@ -101,8 +126,28 @@ export async function dismissUsers(id) {
 
     const userJson = await user.json()
 
+    if (!user.ok) {
+
+        toast(userJson.error, red)
+    } else {
+
+        toast('Usuario Demitido com sucesso', green)
+
+    }
+
     return userJson
 
 }
 
 
+export function resetListDepartament() {
+    const ul = document.querySelector('.department__list')
+    const modal = document.querySelector('.modal__departament--create')
+
+    ul.innerHTML = " "
+
+    renderCardDepartment()
+
+
+    modal.close()
+}

@@ -222,6 +222,14 @@ select {
     font-size: 1.1rem;
     border: none;
 }
+.modal__departament--view > div > span{
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-regular);
+    cursor: pointer;
+}
 
 .modal__list--view {
     align-self: flex-end;

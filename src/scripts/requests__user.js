@@ -1,4 +1,4 @@
-import { requestHeaders, red, baseUrl, } from './requests.js'
+import { requestHeaders, red, baseUrl, green, } from './requests.js'
 import { toast } from './toastfy.js'
 
 export async function userInfo() {
@@ -10,7 +10,7 @@ export async function userInfo() {
     const userJson = await user.json()
 
 
-    return  userJson 
+    return userJson
 }
 
 
@@ -22,33 +22,37 @@ export async function editUser(data) {
     })
 
     const userJson = await user.json()
-    
+
     if (user.ok == false) {
-        
         toast(userJson.error,red)
+    } else {
+        
+            toast("Usuario editado com sucesso",green)
+
     }
+
     return userJson
 }
 
-export async function colleagueDepartment () {
+export async function colleagueDepartment() {
     const user = await fetch(`${baseUrl}/users/departments/coworkers`, {
         method: 'GET',
         headers: requestHeaders
     })
 
-    const  userJson  = await user.json()
+    const userJson = await user.json()
 
-    return  userJson 
+    return userJson
 }
 
 
-export async function departmentUser () {
+export async function departmentUser() {
     const user = await fetch(`${baseUrl}/users/departments`, {
         method: 'GET',
         headers: requestHeaders
     })
 
-    const  userJson  = await user.json()
+    const userJson = await user.json()
 
-    return  userJson 
+    return userJson
 }

@@ -1,43 +1,60 @@
-import { registeredUser, deleteUsers, editUsers } from './requests_admin_user.js'
+import { green, getUser, checkTypeUser } from './requests.js'
+import { registeredUser, deleteUsers, requestEditUsers } from './requests_admin_user.js'
+import { toast } from './toastfy.js'
 
-async function renderRegisteredUsers() {
+
+export async function validateUserPage() {
+    const user = getUser()
+    console.log(user.token)
+    if (user.token == undefined ) {
+        window.location.replace('../../index.html')
+    }
+}
+
+export async function renderRegisteredUsers() {
     const ulUser = document.querySelector('.user__list')
     const listUser = await registeredUser()
 
-    listUser.forEach(user => {
-        const renderCard = createCardregisteredUsers(user)
+    ulUser.innerHTML = " "
 
-        ulUser.appendChild(renderCard)
+    listUser.forEach(user => {
+        let { is_admin } = user
+
+        if (is_admin == false) {
+
+            const renderCard = createCardregisteredUsers(user)
+
+            ulUser.appendChild(renderCard)
+        }
 
     })
-    modalDeleteUser()
     modalEditUser()
+    modalDeleteUser()
 }
 
-
-function editUser(id) {
+async function editUser(id) {
     const selectWork = document.querySelector('.modal__select--work')
     const selectProfessional = document.querySelector('.modal__select--professional')
     const buttonEdit = document.querySelector('.modal__button--edit')
     const modal = document.querySelector('.modal__container--edit')
 
     let userData = {}
-    selectWork.addEventListener('change',() =>{
+
+    selectWork.addEventListener('change', () => {
         userData[selectWork.name] = selectWork.value
     })
-    selectProfessional.addEventListener('change',() =>{
+    selectProfessional.addEventListener('change', () => {
         userData[selectProfessional.name] = selectProfessional.value
     })
 
-    buttonEdit.addEventListener('click',() =>{  
-        
-        editUsers(id,userData)
-        
-        window.location.reload()
-        
-        modal.close()
+    buttonEdit.addEventListener('click', () => {
 
-    } )
+        requestEditUsers(id, userData)
+
+        window.location.reload()
+
+        modal.close()
+    })
 
 }
 
@@ -48,21 +65,25 @@ async function modalEditUser() {
 
 
     openModalEdit.forEach((button, index) => {
-        let { uuid } = listUser[index]
+
+        let { uuid, } = listUser[index + 1]
 
         button.addEventListener('click', () => {
 
-            modal.showModal()
-
             editUser(uuid)
+
+            modal.showModal()
 
             closeModalEdit()
         })
+
+
     })
 }
 
 
 function deleteUser(id) {
+    const ul = document.querySelector('.user__list')
     const modal = document.querySelector('.modal__container--delete')
     const buttonDelete = document.querySelector('.modal__button--delete')
 
@@ -70,9 +91,14 @@ function deleteUser(id) {
 
         deleteUsers(id)
 
-        modal.close()
+        toast('Ususario deletado com sucesso', green)
 
-        window.location.reload()
+        setTimeout(() => {
+            window.location.reload()
+
+        }, 1000)
+
+        modal.close()
     })
 }
 
@@ -82,9 +108,11 @@ async function modalDeleteUser() {
     const listUser = await registeredUser()
 
     openModalDelete.forEach((button, index) => {
-        let { uuid,username  } = listUser[index]
-        
+
         button.addEventListener('click', () => {
+
+            let { uuid, username } = listUser[index + 1]
+
 
             modal.innerHTML = " "
 
@@ -114,7 +142,7 @@ function createModalDelete(username) {
     p.innerText = `Realmente deseja remover o usuário ${username} ?`
     button.innerText = 'Deletar'
     ButtonCloseModal.innerText = 'X'
-    div.append(p, button,ButtonCloseModal)
+    div.append(p, button, ButtonCloseModal)
 
     return div
 }
@@ -155,6 +183,7 @@ function createCardregisteredUsers({ username, professional_level }) {
     div.append(imgEdit, imgDelete)
     li.append(h3, p, h2, div)
 
+
     return li
 }
 
@@ -171,18 +200,23 @@ function closeModalDelete() {
     const button = document.querySelector('.modal__close--delete')
     const modal = document.querySelector('.modal__container--delete')
 
-    button.addEventListener('click',() =>{
+    button.addEventListener('click', () => {
         modal.close()
+        window.location.reload()
     })
 }
+
 function closeModalEdit() {
     const button = document.querySelector('.modal__button--closeModal')
     const modal = document.querySelector('.modal__container--edit')
 
-    button.addEventListener('click',() =>{
+    button.addEventListener('click', () => {
         modal.close()
+
+        window.location.reload()
     })
 }
 
+validateUserPage()
 userLogout()
 renderRegisteredUsers()

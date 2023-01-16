@@ -17,7 +17,9 @@ function renderDepartamentByCompany(departaments) {
 
         ul.appendChild(renderDepartaments)
     })
-
+    modalDeleteDepartament()
+    modalEditDepartament()
+    modalviewDepartaments()
 }
 
 function departamentByCompany() {
@@ -33,8 +35,6 @@ function departamentByCompany() {
 }
 
 function createDepartment() {
-    const ul = document.querySelector('.department__list')
-    const modal = document.querySelector('.modal__departament--create')
     const inputName = document.querySelector('.departament__input--name')
     const inputDescription = document.querySelector('.departament__input--description')
     const select = document.querySelector('.departament__select')
@@ -54,17 +54,13 @@ function createDepartment() {
         departmentData[inputName.name] = inputName.value
         departmentData[inputDescription.name] = inputDescription.value
 
-        modal.close()
-
+        
         createDepartament(departmentData)
-
-        ul.innerHTML = " "
-
-        renderCardDepartment()
+        
     })
 }
 
-async function RenderCompanyOptions() {
+async function renderCompanyOptions() {
     const select = document.querySelector('.department__header--select')
     const AllCompany = await getAllCompany()
 
@@ -77,7 +73,7 @@ async function RenderCompanyOptions() {
     })
 }
 
-async function RenderCreateCompanyOptions() {
+async function renderCreateCompanyOptions() {
     const select = document.querySelector('.departament__select')
     const AllCompany = await getAllCompany()
 
@@ -113,7 +109,7 @@ function openModalCreateDepartment() {
 
         modal.appendChild(formModal)
 
-        RenderCreateCompanyOptions()
+        renderCreateCompanyOptions()
 
         createDepartment()
 
@@ -124,7 +120,7 @@ function openModalCreateDepartment() {
     })
 }
 
-async function renderCardDepartment() {
+export async function renderCardDepartment() {
     const ul = document.querySelector('.department__list')
     const Departments = await getAllDepartament()
     Departments.forEach(Department => {
@@ -192,6 +188,6 @@ function closeModal() {
 }
 
 departamentByCompany()
-RenderCompanyOptions()
+renderCompanyOptions()
 openModalCreateDepartment()
 renderCardDepartment()
