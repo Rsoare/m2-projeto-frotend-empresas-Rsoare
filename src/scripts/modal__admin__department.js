@@ -146,7 +146,7 @@ function editDepartament(id, description) {
 
         departamentData[input.name] = input.value
 
-        editDepartaments(id, departamentData)c
+        editDepartaments(id, departamentData)
         modal.close()
 
     })
