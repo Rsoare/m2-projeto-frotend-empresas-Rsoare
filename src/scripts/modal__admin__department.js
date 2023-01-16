@@ -64,16 +64,16 @@ function createModalDelete(departmentName) {
     const div = document.createElement('div')
     const p = document.createElement('p')
     const button = document.createElement('button')
-    const ButtonCloseModal = document.createElement('button')
+    const buttonCloseModal = document.createElement('button')
 
 
     button.classList.add('modal__button--deleteDepartament')
-    ButtonCloseModal.classList.add('modal__close--deleteDepartament')
+    buttonCloseModal.classList.add('modal__close--deleteDepartament')
 
     p.innerText = `Realmente deseja deletar o Departamento ${departmentName} e demitir seus funcionários?`
     button.innerText = 'Confirmar'
-    ButtonCloseModal.innerText = 'X'
-    div.append(p, button, ButtonCloseModal)
+    buttonCloseModal.innerText = 'X'
+    div.append(p, button, buttonCloseModal)
 
     return div
 }
@@ -136,7 +136,7 @@ function editDepartament(id, description) {
     const buttonEdit = document.querySelector('.form__edit--button')
     const modal = document.querySelector('.modal__departament--edit')
     const input = document.querySelector('.form__Departament--edit')
-    let DepartamentData = {}
+    let departamentData = {}
 
     if (input.name == 'description') {
         input.value = description
@@ -144,10 +144,9 @@ function editDepartament(id, description) {
 
     buttonEdit.addEventListener('click', () => {
 
-        DepartamentData[input.name] = input.value
+        departamentData[input.name] = input.value
 
-        editDepartaments(id, DepartamentData)
-
+        editDepartaments(id, departamentData)c
         modal.close()
 
     })
@@ -258,7 +257,7 @@ function listViewDismissUser(username, professional_level, uuid) {
 
 }
 
-function hireUser(Companyid) {
+function hireUser(companyid) {
     const select = document.querySelector('.modal__select--Visualize')
     const button = document.querySelector('.modal__button--hire')
 
@@ -271,9 +270,9 @@ function hireUser(Companyid) {
 
     button.addEventListener('click', async () => {
 
-        userData['department_uuid'] = Companyid
+        userData['department_uuid'] = companyid
 
-        resetRenderModalView(Companyid)
+        resetRenderModalView(companyid)
         hireUsers(userData)
 
     })
